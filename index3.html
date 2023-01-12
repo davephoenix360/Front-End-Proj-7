@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=League+Spartan">
+  <link rel="stylesheet" href="styles3.css">
+  <title>Frontend Mentor | Calculator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+</head>
+<body>
+  <div class="calc">
+    
+    <div class="top">
+      <span id="calc">calc</span>
+      <span id="theme"><sub>THEME</sub></span>
+      <span id="theme_op"><sup>123</sup></span>
+      <sub>
+        <span class="b_nav">
+        <a href="index.html"><button type="button" id="theme1"></button></a>
+        <a href="index2.html"><button type="button" id="theme2"></button></a>
+        <a href="index3.html"><button type="button" id="theme3"></button></a>
+        </span>
+      </sub>
+    </div>
+
+    <div class="screen">
+      <span><p id="showing"></p></span>
+    </div>
+    <div class="keypad">
+      <table class="table table-responsive">
+        <tr>
+          <td><button type="button" class="btn" id="key7" onclick="clicked('7')">7</button></td>
+          <td><button type="button" class="btn" id="key8" onclick="clicked('8')">8</button></td>
+          <td><button type="button" class="btn" id="key9" onclick="clicked('9')">9</button></td>
+          <td><button type="button" class="btn" id="del" onclick="del()">DEL</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="btn" id="key4" onclick="clicked('4')">4</button></td>
+          <td><button type="button" class="btn" id="key5" onclick="clicked('5')">5</button></td>
+          <td><button type="button" class="btn" id="key6" onclick="clicked('6')">6</button></td>
+          <td><button type="button" class="btn" id="key+" onclick="clicked('+')">+</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="btn" id="key1" onclick="clicked('1')">1</button></td>
+          <td><button type="button" class="btn" id="key2" onclick="clicked('2')">2</button></td>
+          <td><button type="button" class="btn" id="key3" onclick="clicked('3')">3</button></td>
+          <td><button type="button" class="btn" id="keyminus" onclick="clicked('-')">-</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="btn" id="keydot" onclick="clicked('.')">.</button></td>
+          <td><button type="button" class="btn" id="key0" onclick="clicked('0')">0</button></td>
+          <td><button type="button" class="btn" id="keyslash" onclick="clicked('/')">/</button></td>
+          <td><button type="button" class="btn" id="keytimes" onclick="clicked('x')">x</button></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button type="button" class="btn" id="reset" onclick="reset()">RESET </button></td>
+          <td colspan="2"><button type="button" class="btn" id="equals" onclick="calculate()">=</button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+
+  <div class="attribution">
+    Challenge by <a rel="noopener" href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">The Phoenix Coder</a>.
+  </div>
+  <script type="text/javascript">
+    function clicked(num){
+      var current = document.getElementById("showing").innerHTML;
+      document.getElementById("showing").innerHTML = current+num;
+    }
+    function reset(){
+      document.getElementById('showing').innerHTML = "";
+    }
+    function del(){
+      let p = document.getElementById('showing').innerHTML;
+      if (p.length == 1) {
+        document.getElementById('showing').innerHTML = "";  
+      }
+      document.getElementById('showing').innerHTML = p.slice(0,p.length-1);
+    }
+    function calculate(){
+      let prompt = document.getElementById("showing").innerHTML;
+      var test = /\//;
+      while(test.test(prompt)){
+        prompt = divide(prompt);
+      }
+      var test = /x/;
+      while(test.test(prompt)){
+        prompt = multiply(prompt);
+      }
+      var test = /\+/;
+      while (test.test(prompt)) {
+        prompt = add(prompt); 
+      }
+      var test = /\-/;
+      while(test.test(prompt)){
+        prompt = minus(prompt);
+      }
+      document.getElementById('showing').innerHTML = prompt;
+    }
+    function divide(prompt){
+      let regex = /[0-9]+\.{0,1}[0-9]*\/[0-9]+\.{0,1}[0-9]*/;
+      if (!regex.test(prompt)) {
+        return prompt;
+      }
+      let g = prompt.match(regex);
+      while (g.length > 0) {
+        let s = prompt.indexOf(g[0]);
+        let e = s + g[0].length;
+        if (s == 0) {
+          var begin = "";
+        }
+        else{
+          var begin = prompt.slice(0,s);
+        }
+        let end = prompt.slice(e);
+        let nums = g[0].split('/');
+        let num1 = nums[0];
+        let num2 = nums[1];
+        let ans = parseFloat(num1)/parseFloat(num2); 
+        prompt = begin + ans + end;
+        g.shift();
+      }
+      return prompt;
+    }
+    function minus(prompt){
+      let regex = /[0-9]+\.{0,1}[0-9]*\-[0-9]+\.{0,1}[0-9]*/;
+      if (!regex.test(prompt)) {
+        return prompt;
+      }
+      let g = prompt.match(regex);
+      while (g.length > 0) {
+        let s = prompt.indexOf(g[0]);
+        let e = s + g[0].length;
+        if (s == 0) {
+          var begin = "";
+        }
+        else{
+          var begin = prompt.slice(0,s);
+        }
+        let end = prompt.slice(e);
+        let nums = g[0].split('-');
+        let num1 = nums[0];
+        let num2 = nums[1];
+        let ans = parseFloat(num1)-parseFloat(num2); 
+        prompt = begin + ans + end;
+        g.shift();
+      }
+      return prompt;
+    }
+    function multiply(prompt){
+      let regex = /[0-9]+\.{0,1}[0-9]*x[0-9]+\.{0,1}[0-9]*/;
+      if (!regex.test(prompt)) {
+        return prompt;
+      }
+      let g = prompt.match(regex);
+      while (g.length > 0) {
+        let s = prompt.indexOf(g[0]);
+        let e = s + g[0].length;
+        if (s == 0) {
+          var begin = "";
+        }
+        else{
+          var begin = prompt.slice(0,s);
+        }
+        let end = prompt.slice(e);
+        let nums = g[0].split('x');
+        let num1 = nums[0];
+        let num2 = nums[1];
+        let ans = parseFloat(num1)*parseFloat(num2); 
+        prompt = begin + ans + end;
+        g.shift();
+      }
+      return prompt;
+    }
+    function add(prompt){
+      let regex = /[0-9]+\.{0,1}[0-9]*\+[0-9]+\.{0,1}[0-9]*/;
+      if (!regex.test(prompt)) {
+        return prompt;
+      }
+      let g = prompt.match(regex);
+      while (g.length > 0) {
+        let s = prompt.indexOf(g[0]);
+        let e = s + g[0].length;
+        if (s == 0) {
+          var begin = "";
+        }
+        else{
+          var begin = prompt.slice(0,s);
+        }
+        let end = prompt.slice(e);
+        let nums = g[0].split('+');
+        let num1 = nums[0];
+        let num2 = nums[1];
+        let ans = parseFloat(num1)+parseFloat(num2); 
+        prompt = begin + ans + end;
+        g.shift();
+      }
+      return prompt;
+    }
+  </script>
+</body>
+</html>

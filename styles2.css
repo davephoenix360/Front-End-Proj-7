@@ -1,0 +1,98 @@
+body{
+    background-color: hsl(0, 0%, 90%);
+    color: hsl(60, 10%, 19%);
+}
+.calc{
+    position: relative;
+    width: 25%;
+    margin-left: 36%;
+    margin-top: 8%;
+    margin-bottom: 5%;
+}
+.top {
+    width: 100%;
+    position: relative;
+}
+.top #calc{
+    font-weight: 900;
+    font-size: 20px;
+    margin-right: 60%;
+}
+.top #theme{
+    font-weight: 900;
+    font-size: 12px;
+}
+.top #theme_op{
+    font-size: 15px;
+    position: absolute;
+}
+.top .b_nav{
+    background-color: hsl(0, 5%, 81%);
+    border-radius: 5px;
+    padding-right: 5px;
+}
+.top .b_nav button{
+    margin-left: 1%;
+    padding: 0px;
+    width: 7px;
+    height: 7px;
+    border-radius: 7px;
+    border-width: 0cm;
+}
+#theme2{
+    background-color: hsl(25, 98%, 40%);
+}
+#theme1, #theme3{
+    background-color: hsl(0, 5%, 81%);
+}
+.screen{
+    background-color: hsl(0, 0%, 93%);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 8px;
+}
+.screen span{
+    font-size: 30px;
+    font-weight: 700;
+    text-align: right;
+}
+.keypad{
+    padding: 8px;
+    background-color: hsl(0, 5%, 81%);
+    color: hsl(221, 14%, 31%);
+    border-radius: 10px;
+}
+.keypad .table>tbody>tr>td{
+    border-top: 0ch;
+    text-align: center;
+}
+.keypad .table>tbody>tr>td button{
+    width: 100%;
+    font-weight: 900;
+    background-color: hsl(45, 7%, 89%);
+}
+.keypad .table>tbody>tr>td button:hover{
+    background-color: hsl(35, 11%, 61%);
+}
+.keypad .table>tbody>tr>td #reset{
+    background-color: hsl(185, 42%, 37%);
+    color: white;
+}
+.keypad .table>tbody>tr>td #reset:hover{
+    background-color: hsl(185, 58%, 25%);
+}
+.keypad .table>tbody>tr>td #equals{
+    background-color: hsl(25, 98%, 40%);
+    color: white;
+}
+.keypad .table>tbody>tr>td #equals:hover{
+    background-color: hsl(25, 99%, 27%);
+}
+.keypad .table>tbody>tr>td #del{
+    color: white;
+    background-color: hsl(185, 42%, 37%);
+}
+.keypad .table>tbody>tr>td #del:hover{
+    background-color: hsl(185, 58%, 25%);
+}
